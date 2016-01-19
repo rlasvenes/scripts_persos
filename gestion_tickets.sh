@@ -7,6 +7,8 @@ consulter_menu()
 	whiptail --title "Gestion" --nocancel --menu "      MENU " 0 10 5 "1)" "STOCKAGE" "2)" "TABLEAUX" "3)" "QUITTER" 3>&1 1>&2 2>&3 | cut -d')' -f1 > tag_menu.txt
 }
 
+# voir commande COLUMN -t -s "|" fichier.txt
+
 continuer_script=true
 
 while $continuer_script
@@ -15,7 +17,7 @@ do
 	case $(cat tag_menu.txt) in
 	
 	1 )
-		whiptail --title "STOCKAGE" --msgbox "Espace utilisé sur votre machine : \n$(df -h | awk '/sda1/ {print $5}') par $(basename -a $(df -h | awk '/sda1/ {print $1}'))\n$(df -h | awk '/sda2/ {print $5}') par $(basename -a $(df -h | awk '/sda2/ {print $1}'))\n" 0 0 0
+		whiptail --title "STOCKAGE" --msgbox "Espace utilisé sur votre machine : \n$(df -h | awk '/sda1/ {print $5 " par " $1}')\n$(df -h | awk '/sda2/ {print $5 " par " $1}')" 0 0 0
 		;;
 	2 ) 
 		whiptail --title "TITRE" --msgbox "CHOIX 2" 0 0 0
